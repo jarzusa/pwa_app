@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkpwa_frontend"]=self["webpackChunkpwa_frontend"]||[]).push([[443],{654:function(n,t,a){a.r(t),a.d(t,{default:function(){return d}});var e=a(808);const r={class:"about"},u=(0,e._)("h1",null,"This is an about page",-1),s=[u];function c(n,t){return(0,e.wg)(),(0,e.iD)("div",r,s)}var o=a(266);const f={},i=(0,o.Z)(f,[["render",c]]);var d=i}}]);
+//# sourceMappingURL=about.fc3f98ca.js.map
