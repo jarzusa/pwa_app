@@ -1,2 +1,4 @@
-pwa_backend/node_modules
-pwa_frontend/node_modules
+/pwa_backend/node_modules
+/pwa_frontend/node_modules
+*.sql
+/pwa_backend/.vscode
