@@ -1,23 +1,18 @@
 <template>
-  <p class="text-h5">Cliente</p>
+  <p class="text-h5 mb-5">Cliente</p>
   <v-row class="d-flex justify-center mb-10">
-    <v-col cols="12" lg="10" md="10" class="py-0">
-      <v-text-field
-        v-model="textClient"
-        class="mt-4"
-        append-inner-icon="mdi-account-group"
-        label="Nombre de cliente."
+    <v-col cols="12" class="py-0">
+      <v-select
+        v-model="clientSelectedLocal"
         variant="outlined"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12" lg="2" md="2" class="d-flex justify-center py-0">
-      <v-btn
-        color="blue"
-        class="mt-4 text-capitalize"
-        size="x-large"
-        @click="textSearchClient"
-        >Buscar</v-btn
-      >
+        :items="clients"
+        item-title="nombre"
+        return-object
+        transition="none"
+        multiple
+        chips
+        @update:modelValue="filtersClient"
+      ></v-select>
     </v-col>
   </v-row>
   <v-card variant="outlined" class="my-3 scroll">
@@ -43,23 +38,28 @@ import { ref, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useClientStore } from "@/store/clients";
 
-const { clients, loading, clientValue } = storeToRefs(useClientStore());
+const { clients, loading, clientValue, clientSelected, dataClients } =
+  storeToRefs(useClientStore());
 const { setListClients } = useClientStore();
 
-const dataClients = ref<any>([]);
+// const dataClients = ref<any>([]);
 
 const textClient = ref("");
+
+const clientSelectedLocal = ref<any[]>([]);
 
 onMounted(async () => {
   clientValue.value = null;
   await setListClients();
+  clientSelectedLocal.value = [...clientSelected.value];
 });
 
 watch(
-  () => clients.value,
+  () => loading.value,
   (val) => {
-    dataClients.value = [...clients.value];
-    console.log(dataClients.value);
+    if (!val) {
+      filtersClient(clientSelectedLocal.value);
+    }
   }
 );
 
@@ -72,9 +72,17 @@ const textSearchClient = () => {
           -1
       ),
     ];
+  } else {
+    dataClients.value = [...clients.value];
   }
-  else {
-    dataClients.value = [...clients.value]
+};
+
+const filtersClient = (event: any) => {
+  clientSelected.value = [...clientSelectedLocal.value];
+  if (event.length > 0) {
+    dataClients.value = [...event];
+  } else {
+    dataClients.value = [...clients.value];
   }
 };
 

@@ -22,9 +22,11 @@ export class ClientService {
   async findAll(text: string) {
     return await this.clientRepository.find({
       select: ['id', 'nombre', 'activo'],
-      where: { activo: true },
+      where: { activo: true }, 
+      take: 9
     });
   }
+
 
   async findOne(id: number) {
     return await this.clientRepository.find({

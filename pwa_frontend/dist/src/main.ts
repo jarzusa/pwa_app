@@ -4,10 +4,13 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 import { createPinia } from "pinia";
-import axios from 'axios'
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import axios from "axios";
 
 loadFonts();
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
-createApp(App).use(createPinia()).use(router).use(vuetify).mount("#app");
+createApp(App).use(pinia).use(router).use(vuetify).mount("#app");
 
-axios.defaults.baseURL = 'http://localhost:3000/';
+axios.defaults.baseURL = "http://localhost:3000/";

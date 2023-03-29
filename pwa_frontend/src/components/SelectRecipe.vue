@@ -1,23 +1,18 @@
 <template>
-  <p class="text-h5">Recetas</p>
+  <p class="text-h5 mb-5">Recetas</p>
   <v-row class="d-flex justify-center mb-10">
-    <v-col cols="12" lg="10" md="10" class="py-0">
-      <v-text-field
-        v-model="textRecipe"
-        class="mt-4"
-        append-inner-icon="mdi-flower"
-        label="Recetas"
+    <v-col cols="12" class="py-0">
+      <v-select
+        v-model="recipeSelectedLocal"
         variant="outlined"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12" lg="2" md="2" class="d-flex justify-center py-0">
-      <v-btn
-        color="blue"
-        class="mt-4 text-capitalize"
-        size="x-large"
-        @click="textSearchRecipe"
-        >Buscar</v-btn
-      >
+        :items="recipes"
+        item-title="descripcion"
+        return-object
+        transition="none"
+        multiple
+        chips
+        @update:modelValue="filtersRecipes"
+      ></v-select>
     </v-col>
   </v-row>
   <v-card variant="outlined" class="my-3 scroll">
@@ -65,7 +60,8 @@ import { useRecipeStore } from "@/store/recipes";
 import { storeToRefs } from "pinia";
 import { ref, defineProps, onMounted, watch } from "vue";
 const { clientValue } = storeToRefs(useClientStore());
-const { recipeValue, recipes } = storeToRefs(useRecipeStore());
+const { recipeValue, recipes, loading, recipeSelected, dataRecipes } =
+  storeToRefs(useRecipeStore());
 const { setListRecipes } = useRecipeStore();
 defineProps({
   recipes: {
@@ -73,22 +69,37 @@ defineProps({
   },
 });
 
-const dataRecipes = ref<any>([]);
+// const dataRecipes = ref<any>([]);
+
+const recipeSelectedLocal = ref<any[]>([]);
 
 const textRecipe = ref("");
 
-onMounted(() => {
-  if (clientValue.value) setListRecipes(clientValue.value.id);
+onMounted(async () => {
   recipeValue.value = null;
+  if (clientValue.value) await setListRecipes(clientValue.value.id);
+
+  recipeSelectedLocal.value = [...recipeSelected.value];
 });
 
 watch(
-  () => recipes.value,
+  () => loading.value,
   (val) => {
-    dataRecipes.value = [...recipes.value];
-    console.log(dataRecipes.value);
+    console.log(val);
+
+    if (!val) {
+      filtersRecipes(recipeSelectedLocal.value);
+    }
   }
 );
+
+// watch(
+//   () => recipes.value,
+//   (val) => {
+//     dataRecipes.value = [...recipes.value];
+//     console.log(dataRecipes.value);
+//   }
+// );
 
 const changeValueModel = (event: any) => {
   recipeValue.value = event;
@@ -99,10 +110,20 @@ const textSearchRecipe = () => {
     dataRecipes.value = [
       ...recipes.value.filter(
         (element) =>
-          element.descripcion.toLowerCase().search(textRecipe.value.toLowerCase()) >
-          -1
+          element.descripcion
+            .toLowerCase()
+            .search(textRecipe.value.toLowerCase()) > -1
       ),
     ];
+  } else {
+    dataRecipes.value = [...recipes.value];
+  }
+};
+
+const filtersRecipes = (event: any) => {
+  recipeSelected.value = [...recipeSelectedLocal.value];
+  if (event.length > 0) {
+    dataRecipes.value = [...event];
   } else {
     dataRecipes.value = [...recipes.value];
   }

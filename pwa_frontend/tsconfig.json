@@ -16,7 +16,7 @@
     "types": [
       "webpack-env",
       "jest",
-      "node"
+      "node",
     ],
     "paths": {
       "@/*": [
@@ -35,7 +35,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx" 
   ],
   "exclude": [
     "node_modules"
