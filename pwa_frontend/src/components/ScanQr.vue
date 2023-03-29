@@ -1,5 +1,15 @@
 <template>
   <v-card elevation="0" class="my-3 scroll">
+    <v-card-title v-if="clientValue && recipeValue">
+      <v-row class="mb-5">
+        <v-col cols="12">
+          Cliente: <strong>{{ clientValue.nombre }}</strong>
+        </v-col>
+        <v-col cols="12">
+          Receta: <strong>{{ recipeValue.descripcion }}</strong>
+        </v-col>
+      </v-row>
+    </v-card-title>
     <v-card-text>
       <v-text-field
         v-model="qrCode"
@@ -32,10 +42,12 @@
 </template>
 <script lang="ts" setup>
 import { useClientStore } from "@/store/clients";
+import { useRecipeStore } from "@/store/recipes";
 import { storeToRefs } from "pinia";
 import { nextTick, onMounted, ref } from "vue";
 
-const { clientValue, recipeValue, qrCode } = storeToRefs(useClientStore());
+const { clientValue, qrCode } = storeToRefs(useClientStore());
+const { recipeValue } = storeToRefs(useRecipeStore());
 
 const refToElement = ref();
 

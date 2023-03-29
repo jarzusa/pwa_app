@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity('cliente_receta_tipo_ramo')
-export class Recipe {
+export class CustomerTypeRecipeBouquet {
   @PrimaryGeneratedColumn()
   id?: number;
 

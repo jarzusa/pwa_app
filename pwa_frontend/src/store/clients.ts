@@ -5,7 +5,11 @@ export const useClientStore = defineStore("clients", {
   state: () => ({
     clients: [] as any[],
     loading: false,
-    clientValue: null as null | { recetas: Array<any> },
+    clientValue: null as null | {
+      id: number | string;
+      nombre: string;
+      recetas: Array<any>;
+    },
     recipeValue: null,
     qrCode: "",
   }),

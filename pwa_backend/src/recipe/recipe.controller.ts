@@ -11,6 +11,11 @@ export class RecipeController {
   }
 
   @Get(':id')
+  findAllByClient(@Param('id') id: string) {
+    return this.recipeService.findAllByClient(+id);
+  }
+
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.recipeService.findOne(+id);
   }

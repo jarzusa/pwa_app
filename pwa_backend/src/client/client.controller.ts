@@ -3,6 +3,7 @@ import {
   Get,
   InternalServerErrorException,
   Param,
+  Query,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { RecipeService } from '../recipe/recipe.service';
@@ -15,8 +16,8 @@ export class ClientController {
   ) {}
 
   @Get()
-  async findAll() {
-    return await this.clientService.findAll();
+  async findAll(@Query('text') text: string) {
+    return await this.clientService.findAll(text);
   }
 
   @Get(':id')
