@@ -69,11 +69,7 @@ defineProps({
   },
 });
 
-// const dataRecipes = ref<any>([]);
-
 const recipeSelectedLocal = ref<any[]>([]);
-
-const textRecipe = ref("");
 
 onMounted(async () => {
   recipeValue.value = null;
@@ -93,34 +89,11 @@ watch(
   }
 );
 
-// watch(
-//   () => recipes.value,
-//   (val) => {
-//     dataRecipes.value = [...recipes.value];
-//     console.log(dataRecipes.value);
-//   }
-// );
-
-const changeValueModel = (event: any) => {
+const changeValueModel = (event: { descripcion: string }) => {
   recipeValue.value = event;
 };
 
-const textSearchRecipe = () => {
-  if (textRecipe.value.trim() != "") {
-    dataRecipes.value = [
-      ...recipes.value.filter(
-        (element) =>
-          element.descripcion
-            .toLowerCase()
-            .search(textRecipe.value.toLowerCase()) > -1
-      ),
-    ];
-  } else {
-    dataRecipes.value = [...recipes.value];
-  }
-};
-
-const filtersRecipes = (event: any) => {
+const filtersRecipes = (event: object[]) => {
   recipeSelected.value = [...recipeSelectedLocal.value];
   if (event.length > 0) {
     dataRecipes.value = [...event];
@@ -129,7 +102,7 @@ const filtersRecipes = (event: any) => {
   }
 };
 
-const backToClient = (event: any) => {
+const backToClient = () => {
   clientValue.value = null;
 };
 </script>

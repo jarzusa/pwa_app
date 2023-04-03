@@ -21,7 +21,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
 import SelectClient from "@/components/SelectClient.vue";
 import SelectRecipe from "@/components/SelectRecipe.vue";
 import ScanQr from "@/components/ScanQr.vue";
@@ -31,8 +30,6 @@ import { storeToRefs } from "pinia";
 
 const { clientValue } = storeToRefs(useClientStore());
 const { recipeValue } = storeToRefs(useRecipeStore());
-
-// const recipes = ref<Array<{ description: string }>>([]);
 
 const scanQr = () => {
   console.log("Entre");

@@ -8,6 +8,8 @@ import { ClientModule } from './client/client.module';
 import { RecipeModule } from './recipe/recipe.module';
 import { ConfigModule } from '@nestjs/config';
 import { BouquetTypeRecipeModule } from './bouquet-type-recipe/bouquet-type-recipe.module';
+import { ScanModule } from './scan/scan.module';
+import { ProductionBandModule } from './production-band/production-band.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { BouquetTypeRecipeModule } from './bouquet-type-recipe/bouquet-type-reci
     ClientModule,
     RecipeModule,
     BouquetTypeRecipeModule,
+    ScanModule,
+    ProductionBandModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -33,21 +33,29 @@
           variant="outlined"
           color="blue"
           dark
+          @click="scan"
         >
           Enviar
         </v-btn>
       </v-card-actions>
     </v-card-text>
   </v-card>
+
+  <v-snackbar v-model="showSnackbar" :timeout="3000">
+    {{ message }}
+  </v-snackbar>
 </template>
 <script lang="ts" setup>
 import { useClientStore } from "@/store/clients";
 import { useRecipeStore } from "@/store/recipes";
+import { useScanStore } from "@/store/scan";
 import { storeToRefs } from "pinia";
 import { nextTick, onMounted, ref } from "vue";
 
 const { clientValue, qrCode } = storeToRefs(useClientStore());
 const { recipeValue } = storeToRefs(useRecipeStore());
+const { message, showSnackbar } = storeToRefs(useScanStore());
+const { scanQrCode } = useScanStore();
 
 const refToElement = ref();
 
@@ -55,6 +63,18 @@ onMounted(() => {
   nextTick(() => refToElement.value.focus());
 });
 
+const scan = async () => {
+  console.log(process.env);
+
+  const bodyRequest = {
+    usuario_id: Number(process.env.VUE_APP_USUARIO_ID),
+    empresa_id: Number(process.env.VUE_APP_EMPRESA_ID),
+    serial: qrCode.value,
+    cliente_id: clientValue.value?.id,
+    receta_id: recipeValue.value?.id
+  };
+  scanQrCode(bodyRequest);
+};
 const backToRecipes = () => {
   recipeValue.value = null;
 };

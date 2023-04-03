@@ -3,5 +3,7 @@
 
 /pwa_frontend/node_modules/
 /pwa_backend/node_modules/
+/pwa_frontend/dist/
+/pwa_backend/dist/
 /pwa_frontend/.pnpm-store
 /pwa_backend/.pnpm-store

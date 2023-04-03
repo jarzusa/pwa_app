@@ -15,14 +15,11 @@ export class BouquetTypeRecipeService {
   }
 
   async findAllByCustomerTypeRecipeBouquet(id: number) {
-    console.log("ID 2 => ", id);
-    
     const data = await this.customerTypeRecipeBouquetRepository.find({
       select: ['descripcion'],
       where: { id: id },
     });
-    console.log("DATA 2 => ", data);
-    return  data
+    return data;
   }
 
   findOne(id: number) {

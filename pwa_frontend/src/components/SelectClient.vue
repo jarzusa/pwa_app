@@ -42,10 +42,6 @@ const { clients, loading, clientValue, clientSelected, dataClients } =
   storeToRefs(useClientStore());
 const { setListClients } = useClientStore();
 
-// const dataClients = ref<any>([]);
-
-const textClient = ref("");
-
 const clientSelectedLocal = ref<any[]>([]);
 
 onMounted(async () => {
@@ -63,21 +59,7 @@ watch(
   }
 );
 
-const textSearchClient = () => {
-  if (textClient.value.trim() != "") {
-    dataClients.value = [
-      ...clients.value.filter(
-        (element) =>
-          element.nombre.toLowerCase().search(textClient.value.toLowerCase()) >
-          -1
-      ),
-    ];
-  } else {
-    dataClients.value = [...clients.value];
-  }
-};
-
-const filtersClient = (event: any) => {
+const filtersClient = (event: object[]) => {
   clientSelected.value = [...clientSelectedLocal.value];
   if (event.length > 0) {
     dataClients.value = [...event];
@@ -86,7 +68,11 @@ const filtersClient = (event: any) => {
   }
 };
 
-const changeValueModel = (event: any) => {
+const changeValueModel = (event: {
+  id: string | number;
+  nombre: string;
+  recetas: object[];
+}) => {
   loading.value = true;
   clientValue.value = event;
   setTimeout(() => {

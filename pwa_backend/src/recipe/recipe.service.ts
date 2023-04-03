@@ -43,7 +43,6 @@ export class RecipeService {
     });
 
     for (const key in data) {
-      console.log('ID 1 => ', data[key].receta_tipo_ramo_id);
       const bouquetTypeRecipe = await this.bouquetTypeRecipeService
         .findAllByCustomerTypeRecipeBouquet(data[key].receta_tipo_ramo_id)
         .then((bouquetTypeRecipe) => {
@@ -52,15 +51,13 @@ export class RecipeService {
       data[key]['descripcion'] = bouquetTypeRecipe[0]
         ? bouquetTypeRecipe[0].descripcion
         : null;
-
-      console.log('bouquetTypeRecipe => ', bouquetTypeRecipe[0].descripcion);
     }
 
     return data;
 
     try {
       return await this.dataSource.query(
-        `  SELECT rtr.*, tr.codigo as tipoRamo, gr.codigo as codigoGrado
+        `SELECT rtr.*, tr.codigo as tipoRamo, gr.codigo as codigoGrado
          FROM cliente_receta_tipo_ramoa crtr
          INNER JOIN receta_tipo_ramo rtr ON rtr.id = crtr.receta_tipo_ramo_id
          INNER JOIN tipo_ramo tr ON tr.id = rtr.tipo_ramo_id
