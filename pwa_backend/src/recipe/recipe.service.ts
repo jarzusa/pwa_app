@@ -38,8 +38,8 @@ export class RecipeService {
 
   async findAllByClient(id: number) {
     const data = await this.customerTypeRecipeBouquetRepository.find({
-      select: ['id', 'receta_tipo_ramo_id', 'activo'],
-      where: { cliente_id: id },
+      select: ['id', 'receta_tipo_ramo_id', 'activo', 'grado_id'],
+      where: { cliente_id: id, activo: true },
     });
 
     for (const key in data) {
@@ -48,8 +48,12 @@ export class RecipeService {
         .then((bouquetTypeRecipe) => {
           return bouquetTypeRecipe;
         });
+
       data[key]['descripcion'] = bouquetTypeRecipe[0]
         ? bouquetTypeRecipe[0].descripcion
+        : null;
+      data[key]['tipo_ramo_id'] = bouquetTypeRecipe[0]
+        ? bouquetTypeRecipe[0].tipo_ramo_id
         : null;
     }
 

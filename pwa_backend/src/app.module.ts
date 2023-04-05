@@ -10,6 +10,8 @@ import { ConfigModule } from '@nestjs/config';
 import { BouquetTypeRecipeModule } from './bouquet-type-recipe/bouquet-type-recipe.module';
 import { ScanModule } from './scan/scan.module';
 import { ProductionBandModule } from './production-band/production-band.module';
+import { FinishedProductInventoryModule } from './finished-product-inventory/finished-product-inventory.module';
+import { GradeModule } from './grade/grade.module';
 
 @Module({
   imports: [
@@ -35,6 +37,8 @@ import { ProductionBandModule } from './production-band/production-band.module';
     BouquetTypeRecipeModule,
     ScanModule,
     ProductionBandModule,
+    FinishedProductInventoryModule,
+    GradeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

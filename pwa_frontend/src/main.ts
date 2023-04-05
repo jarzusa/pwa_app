@@ -10,4 +10,4 @@ loadFonts();
 
 createApp(App).use(createPinia()).use(router).use(vuetify).mount("#app");
 
-axios.defaults.baseURL = 'http://localhost:3000/';
+axios.defaults.baseURL = process.env.VUE_APP_URL;

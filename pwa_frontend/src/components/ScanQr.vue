@@ -71,7 +71,9 @@ const scan = async () => {
     empresa_id: Number(process.env.VUE_APP_EMPRESA_ID),
     serial: qrCode.value,
     cliente_id: clientValue.value?.id,
-    receta_id: recipeValue.value?.id
+    receta_tipo_ramo_id: recipeValue.value?.receta_tipo_ramo_id,
+    tipo_ramo_id: recipeValue.value?.tipo_ramo_id,
+    grado_id: recipeValue.value?.grado_id
   };
   scanQrCode(bodyRequest);
 };

@@ -6,8 +6,20 @@ export class ScanCode {
   serial: string;
 
   @IsNumber()
-  usuario_id: string;
+  usuario_id: number;
 
   @IsNumber()
-  empresa_id: string;
+  empresa_id: number;
+
+  @IsNumber()
+  cliente_id: number;
+
+  @IsNumber()
+  receta_tipo_ramo_id: number;
+
+  @IsNumber()
+  grado_id: number;
+
+  @IsNumber()
+  tipo_ramo_id: number;
 }

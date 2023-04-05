@@ -16,7 +16,7 @@ export class BouquetTypeRecipeService {
 
   async findAllByCustomerTypeRecipeBouquet(id: number) {
     const data = await this.customerTypeRecipeBouquetRepository.find({
-      select: ['descripcion'],
+      select: ['descripcion', 'tipo_ramo_id'],
       where: { id: id },
     });
     return data;

@@ -6,7 +6,12 @@ export const useRecipeStore = defineStore("recipes", {
     loading: false,
     recipes: [] as any[],
     dataRecipes: [] as any[],
-    recipeValue: null as { descripcion: string; id: number } | null,
+    recipeValue: null as {
+      descripcion: string;
+      receta_tipo_ramo_id: number;
+      tipo_ramo_id: number;
+      grado_id: number;
+    } | null,
     recipeSelected: [] as Array<any>,
   }),
   actions: {
@@ -29,4 +34,3 @@ export const useRecipeStore = defineStore("recipes", {
     },
   },
 });
-

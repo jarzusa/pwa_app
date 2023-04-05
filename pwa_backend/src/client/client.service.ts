@@ -23,7 +23,7 @@ export class ClientService {
     return await this.clientRepository.find({
       select: ['id', 'nombre', 'activo'],
       where: { activo: true }, 
-      take: 9
+      take: 100
     });
   }
 
