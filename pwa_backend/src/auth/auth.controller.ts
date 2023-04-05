@@ -8,8 +8,6 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginAuthDto } from './dto/login-auth.dto';
-import { RegisterAuthDto } from './dto/register-auth.dto';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 
@@ -19,11 +17,6 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
   ) {}
-
-  @Post()
-  create(@Body() loginAuthDto: LoginAuthDto) {
-    return this.authService.login(loginAuthDto);
-  }
 
   @Get()
   async findAll() {
@@ -50,21 +43,5 @@ export class AuthController {
         '-----------------------------------------------------------------',
       );
     });
-    // console.log(data);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: RegisterAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
   }
 }
